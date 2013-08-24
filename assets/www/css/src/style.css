@@ -1,0 +1,91 @@
+.ui-page {
+  margin: 0px;
+  padding: 0px;
+  
+  font-size: 16px;
+}
+.clear {
+  clear: both;
+}
+
+.icon-label {
+    color: #000;
+    text-align: center;
+    display: block;
+    font-size:14px;
+}
+.icon-springboard{
+    text-align: center;
+    margin: 10px;
+}
+.icon-springboard a:link, .icon-springboard a:visited,.icon-springboard a:hover,.icon-springboard a:active {
+    text-decoration:none;
+}
+.ui-header .ui-title, .ui-footer .ui-title {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.ui-page {
+    -webkit-backface-visibility: hidden;
+}
+
+/*panel */
+.ui-panel {
+    width: 8em;
+}
+
+.ui-panel-position-left {
+    left: -8em;
+}
+
+/* positioning: content wrap, fixed toolbars and dismiss */
+/* panel
+           left open */
+.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open,
+.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open, .ui-panel-dismiss-position-left.ui-panel-dismiss-open {
+    left: 8em;
+    right: -8em;
+}
+
+/* animated: panel left open (for reveal and
+           push) */
+.ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-reveal,
+.ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-push,
+.ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-reveal,
+.ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-push {
+    -webkit-transform: translate3d(8em, 0, 0);
+    -moz-transform: translate3d(8em, 0, 0);
+    transform: translate3d(8em, 0, 0);
+}
+.even{
+    background: #ffffee;
+}
+.odd{
+    background: #eeeeee;
+}
+ul{
+    padding-left: 0px;
+    margin: 0px;
+}
+.add ul li{
+    list-style-type: none;
+}
+.ui-body-b, .ui-overlay-b {
+    background: #e8e8e8; //修改这里的颜色代码
+}
+.ui-input-search,.ui-input-text,.ui-btn{
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+
+.ui-navbar .ui-btn{
+    border-radius:0px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+}
+#edit-btn,#edit-cancle-btn{
+    width: 45%;
+}

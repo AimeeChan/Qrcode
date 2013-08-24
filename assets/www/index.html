@@ -1,0 +1,465 @@
+<!DOCtype html>
+<html>
+
+<head>
+    <meta name="viewport" charset="utf-8"
+          content="width=device-width, minimum-scale=1, maximum-scale=1,user-scalable=no"/>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+    <title>Main</title>
+    <link rel="stylesheet" href="css/lib/jquery.mobile-1.3.1.min.css"/>
+    <link rel="stylesheet" href="css/themes/jquerymobile-swatch.min.css"/>
+    <link rel="stylesheet" href="css/src/style.css"/>
+    <link rel="stylesheet" href="css/src/main.css" type="text/css">
+    <script type="text/javascript" charset="utf-8" src="js/lib/cordova-2.3.0.js">
+
+    </script>
+    <script type="text/javascript" src="js/lib/jquery-1.9.1.min.js">
+
+    </script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $.mobile.buttonMarkup.hoverDelay = "false";
+            $(document).bind("mobileinit", function(){
+                $.mobile.ajaxEnabled = false;
+            });
+        });
+        document.addEventListener("deviceready", onDeviceReady, false);
+
+        // Cordova is ready
+        //
+        function onDeviceReady() {
+            navigator.splashscreen.show();
+            document.addEventListener("backbutton", eventBackButton, false);
+            document.addEventListener("menubutton", eventMenuButton, false);
+            //document.addEventListener("searchbutton", eventSearchButton, false);
+        }
+
+        function onBackKeyDown() {
+            if ($.mobile.activePage.is('#home-page')) {
+                $("#mypopupdiv").popup("open");
+                //  navigator.app.exitApp();
+            }
+        }
+
+        function onConfirm(button) {
+            if (button == '1') {
+                navigator.app.exitApp();
+            } else {
+            }
+        }
+        function eventBackButton() {
+                navigator.notification.confirm('退出程序?', onConfirm, //
+                        '程序提示', //
+                        '确定,取消' //
+                );
+
+        }
+        function eventMenuButton() {
+
+            $("#setup_panel").panel("open");
+
+        }
+    </script>
+
+    <script type="text/javascript" src="js/lib/jquery.mobile-1.3.1.min.js">
+
+    </script>
+    <script type="text/javascript" src="js/lib/barcodescanner.js">
+
+    </script>
+
+    <script type="text/javascript" src="js/src/main.js">
+
+    </script>
+</head>
+
+<body>
+<div data-role="page" class="page" data-theme="b" id="home-page">
+    <div data-role="header" data-theme="b" class="header"
+         data-position="fixed" data-id="main-header">
+        <h4>DEVICE MANAGER</h4>
+    </div>
+    <div data-role="content" class="content">
+        <p>Welcome to the device manager app!</p>
+
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false"
+         data-theme="b" data-id="main-tabbar">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home-page" data-role="button" data-icon="home"
+                       data-iconpos="notext" data-theme="b" data-inline="true"
+                       class="ui-btn-active ui-state-persist"> Home </a></li>
+                <li><a href="#serach-page" data-role="button"
+                       data-icon="search" data-iconpos="notext" data-theme="b"
+                       data-inline="true"> Search </a></li>
+                <li><a href="#scan-page" data-role="button" data-icon="gear"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> Scan
+                </a></li>
+                <li><a href="#edit-page" data-role="button" data-icon="edit"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> Edit
+                </a></li>
+                <li><a href="#about-page" data-role="button" data-icon="info"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> about
+                </a></li>
+            </ul>
+        </div>
+    </div>
+    <!--panel page -->
+    <div data-role="panel" id="setup_panel" data-display="overlay"
+         data-theme="b">
+        <ul data-role="listview" data-theme="a" data-dividertheme="b">
+            <li data-role="list-divider">Listviews</li>
+            <li data-icon="false"><a href="#"> List basics &amp; API </a></li>
+            <li data-icon="false"><a href="#"> Basic linked list </a></li>
+            <li data-icon="false"><a href="#"> Nested list </a></li>
+            <li data-icon="false"><a href="#"> Numbered list </a></li>
+        </ul>
+        <!-- panel content goes here -->
+    </div>
+    <!--panel page -->
+</div>
+<div data-role="page" class="page" data-theme="b" id="serach-page">
+    <div data-role="header" data-theme="b" class="header"
+         data-position="fixed" data-id="main-header">
+        <h4>DEVICE MANAGER-SEARCH</h4>
+    </div>
+    <div data-role="content" class="content" id="search-content">
+        <label for="search-basic">search input:</label>
+        <input type="search" data-icon="search" id="search-basic"/>
+        <a href="" data-role="button" id="search-btn" data-theme="d">search</a>
+
+        <div class="search-result" data-role="collapsible-set" data-theme="d">
+
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false"
+         data-theme="b" data-id="main-tabbar">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home-page" data-role="button" data-icon="home"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> Home
+                </a></li>
+                <li><a href="#serach-page" data-role="button"
+                       data-icon="search" data-iconpos="notext" data-theme="b"
+                       data-inline="true" class="ui-btn-active ui-state-persist">
+                    Search </a></li>
+                <li><a href="#scan-page" data-role="button" data-icon="gear"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> Scan
+                </a></li>
+                <li><a href="#edit-page" data-role="button" data-icon="edit"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> Edit
+                </a></li>
+                <li><a href="#" data-role="button" data-icon="edit"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> Edit
+                </a></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        $(".search-result").hide();
+        var jsonCallback = function (data) {
+            if (data.length > 0) {
+                $.each(data, function (key, val) {
+                    var items = [];
+                    var myid = 'id' + key;
+                    var div = document.createElement('div');
+                    div.id = myid;
+                    div.className = 'add';
+                    $(div).attr("data-role", 'collapsible');
+                    $(div).attr("data-theme", "d");
+                    var h3 = document.createElement('h3');
+                    var p = document.createElement('p');
+                    var ul = document.createElement('ul');
+                    var f = false;
+                    $.each(val, function (i, value) {
+                        if (f === false) {
+                            h3.innerHTML = i + ': ' + value;
+                            f = true;
+                        } else {
+                            var li = document.createElement('li');
+                            li.innerHTML = i + ": " + value;
+                            ul.appendChild(li);
+                        }
+
+                    })
+                    div.appendChild(h3);
+                    div.appendChild(ul);
+
+                    $(div).appendTo(".search-result");
+                    $("li:odd").addClass("odd");
+                    $("li:even").addClass("even");
+                    $(div).collapsible();
+                });
+            };
+            $.mobile.loading('hide');
+            $('.search-result').show();
+        }
+        $("#search-btn").bind("click", function () {
+            var inputval = $("#search-basic").val();
+            if (inputval != undefined) {
+                //                console.log("1111");
+                $.mobile.loading('show', {
+                    text: 'searching....',
+                    textVisible: true,
+                    textonly: true,
+                    theme: 'b',
+                    html: ""
+                });
+                $('.search-result .add').remove();
+                if(!localStorage.url){
+                    localStorage.url = "http://112.96.28.126:8080/deviceinfo/device_info.jsp";
+                }
+                $.ajax({
+                    type: "get",
+                    url: localStorage.url,
+                    dataType: "jsonp",
+                    data: {
+                        queryStr: inputval
+                    },
+                    contentType: "application/json",
+                    success: jsonCallback,
+                    error: function(){
+                        $.mobile.loading('hide');
+                       $("#search-result").html("Wrong request!");
+                    }
+                });
+
+            }
+
+        });
+    </script>
+</div>
+<div data-role="page" class="page" data-theme="b" id="scan-page">
+    <div data-role="header" data-theme="b" class="header"
+         data-position="fixed" data-id="main-header">
+        <a href="#" data-role="button" class="ui-btn-right" id="refresh-btn">refresh</a>
+        <h4>DEVICE MANAGER-SCAN</h4>
+    </div>
+    <div data-role="content" class="content">
+        <input type="button" id="scanbtn" data-icon="gear" data-theme="d"
+               value="press to scan device code...">
+
+        <div class="" id="info">
+            <div class="" id="scan-info">
+                <p id="scanresult"></p>
+
+            </div>
+            <input type="hidden" id="device_id">
+            <hr>
+            <div class="" id="more-info" style="">
+
+                <a id="dev_detail" href="" data-role="button" data-theme="d"
+                   id="more-btn"> Get more info…… </a>
+
+                <p id="moreinfo"></p>
+                <ul data-role="listview" data-inset="true" data-theme="e"
+                    id="resultlistview">
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false"
+         data-theme="b" data-id="main-tabbar">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home-page" data-role="button" data-icon="home"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> Home
+                </a></li>
+                <li><a href="#serach-page" data-role="button"
+                       data-icon="search" data-iconpos="notext" data-theme="b"
+                       data-inline="true"> Search </a></li>
+                <li><a href="#scan-page" data-role="button" data-icon="gear"
+                       data-iconpos="notext" data-theme="b" data-inline="true"
+                       class="ui-btn-active ui-state-persist"> Scan </a></li>
+                <li><a href="#edit-page" data-role="button" data-icon="edit"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> Edit
+                </a></li>
+                <li><a href="#about-page" data-role="button" data-icon="info"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> about
+                </a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        var devid = 2;
+        $(document).ready(function () {
+            $("#more-info").hide();
+        })
+        $("#scanbtn").bind("click", function () {
+            window.plugins.barcodeScanner.scan(function (result) {
+                $("more-info").show();
+                var element = document.getElementById('scanresult');
+
+                document.getElementById('more-info').style.display = "";
+                var content = result.text;
+                element.innerHTML = content;
+
+                //var start = content.indexOf("id:<");
+				var start = content.indexOf("device_id:(");
+                var end = content.indexOf(")", start);
+                devid = content.substring(start+11, end);
+                alert(devid);
+                var devid2 = content.substring(start, end+3);
+                content = content.replace(devid2," ");
+                if(content.indexOf("\n") != -1){
+                    content = content.replace(/\\n/g,"<br>");
+                } else if(content.indexOf("\r") != -1){
+                    content = content.replace(/\\r/g,"<br>");
+                } else if(content.indexOf("\t") != -1){
+                    content = content.replace(/\\t/g,"<br>");
+                }
+                element.innerHTML = content;
+            }, function (error) {
+                alert("Scan failed: " + error);
+            });
+        });
+
+        $("#refresh-btn").click(function () {
+            location.reload();
+        });
+        $("#dev_detail").bind("click", function () {
+            $.mobile.loading("show");
+            $.ajax({
+                type: "post",
+                url: "http://112.96.28.126:8080/deviceinfo/device_info_id.jsp",
+                dataType: "jsonp",
+                data: {
+                    id: devid
+                },
+                jsonpCallback: 'jsonCallback_more',
+                contentType: "application/json",
+                success: function (data) {
+                    if (data == null) {
+                        alert("nodata.");
+                    } else {
+                        var suggestList = document.getElementById('resultlistview');
+                        suggestList.innerHTML = "";
+
+                        var objData = data[0];
+                        if (data == null)
+                            alert("no data return;");
+                        $.each(objData, function (name, value) {
+                            $("#resultlistview").append('<li>' + name + ':' + value + '</li> ');
+
+                        });
+                        $('li:even').addClass('even');
+                        $('li:odd').addClass('odd');
+                        $("#resultlistview").listview();
+                    }
+
+                },
+                error: function (XMLResponse) {
+                    alert(arguments[1]);
+                }
+
+            });
+            $.mobile.loading("hide");
+        });
+    </script>
+</div>
+<div data-role="page" class="page" data-theme="b" id="edit-page">
+    <div data-role="header" data-theme="b" class="header"
+         data-position="fixed" data-id="main-header">
+        <h4>DEVICE MANAGER-EDIT</h4>
+    </div>
+    <div data-role="content" class="content"  id="edit-content">
+        <input type="text" id="edit-url" value=""/>
+        <a href="#" data-role="button" data-theme="d" id="edit-cancle-btn" data-inline="true">取消</a>
+        <a href="#" data-role="button" data-theme="d" id="edit-btn" data-inline="true">保存修改</a>
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false"
+         data-theme="b" data-id="main-tabbar">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home-page" data-role="button" data-icon="home"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> Home
+                </a></li>
+                <li><a href="#serach-page" data-role="button"
+                       data-icon="search" data-iconpos="notext" data-theme="b"
+                       data-inline="true"> Search </a></li>
+                <li><a href="#scan-page" data-role="button" data-icon="gear"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> Scan
+                </a></li>
+                <li><a href="#edit-page" data-role="button" data-icon="edit"
+                       data-iconpos="notext" data-theme="b" data-inline="true"
+                       class="ui-btn-active ui-state-persist"> Edit </a></li>
+                <li><a href="#about-page" data-role="button" data-icon="info"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> about
+                </a></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        $("#edit-page").ready(function () {
+            if(!localStorage.url){
+                localStorage.url = "http://112.96.28.126:8080/deviceinfo/device_info.jsp";
+            };
+            $("#edit-url").val(localStorage.url);
+            $("#edit-btn").addClass("ui-disabled");
+            $("#edit-cancle-btn").addClass("ui-disabled");
+            $("#edit-url").bind("keyup", function(){
+                if ($("#edit-url").val() !== localStorage.url){
+                    $("#edit-btn").removeClass("ui-disabled");
+                    $("#edit-cancle-btn").removeClass("ui-disabled");
+                }
+            });
+            $("#edit-btn").bind("click", function () {
+                localStorage.url = $("#edit-url").val();
+                alert("save successfully!");
+                $("#edit-btn").addClass("ui-disabled");
+                $("#edit-cancle-btn").addClass("ui-disabled");
+                $("#edit-url").val(localStorage.url);
+            });
+            $("#edit-cancle-btn").bind("click", function (){
+                $("#edit-url").val(localStorage.url);
+                $("#edit-btn").addClass("ui-disabled");
+                $("#edit-cancle-btn").addClass("ui-disabled");
+            });
+        });
+
+    </script>
+</div>
+
+<div data-role="page" class="page" data-theme="b" id="about-page">
+    <div data-role="header" data-theme="b" class="header"
+         data-position="fixed" data-id="main-header">
+        <h4>DEVICE MANAGER-ABOUT</h4>
+    </div>
+    <div data-role="content" class="content">
+        <!-- <input type="button" id="changePage" data-icon="gear" data-theme="d"
+            value="scan">
+            -->
+        <p>CopyRight 业务平台支撑中心 广州运维</p>
+
+        <p>联系人：陈银铸 18620011761</p>
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false"
+         data-theme="b" data-id="main-tabbar">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home-page" data-role="button" data-icon="home"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> Home
+                </a></li>
+                <li><a href="#serach-page" data-role="button"
+                       data-icon="search" data-iconpos="notext" data-theme="b"
+                       data-inline="true"> Search </a></li>
+                <li><a href="#scan-page" data-role="button" data-icon="gear"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> Scan
+                </a></li>
+                <li><a href="#edit-page" data-role="button" data-icon="edit"
+                       data-iconpos="notext" data-theme="b" data-inline="true"
+                       class="ui-btn-active ui-state-persist"> Edit </a></li>
+                <li><a href="#about-page" data-role="button" data-icon="info"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> about
+                </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
