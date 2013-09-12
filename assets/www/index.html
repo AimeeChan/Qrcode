@@ -1,6 +1,5 @@
 <!DOCtype html>
 <html>
-
 <head>
     <meta name="viewport" charset="utf-8"
           content="width=device-width, minimum-scale=1, maximum-scale=1,user-scalable=no"/>
@@ -10,12 +9,8 @@
     <link rel="stylesheet" href="css/themes/jquerymobile-swatch.min.css"/>
     <link rel="stylesheet" href="css/src/style.css"/>
     <link rel="stylesheet" href="css/src/main.css" type="text/css">
-    <script type="text/javascript" charset="utf-8" src="js/lib/cordova-2.3.0.js">
-
-    </script>
-    <script type="text/javascript" src="js/lib/jquery-1.9.1.min.js">
-
-    </script>
+    <script type="text/javascript" charset="utf-8" src="js/lib/cordova-2.3.0.js"></script>
+    <script type="text/javascript" src="js/lib/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
             $.mobile.buttonMarkup.hoverDelay = "false";
@@ -60,19 +55,11 @@
 
         }
     </script>
-
     <script type="text/javascript" src="js/lib/jquery.mobile-1.3.1.min.js">
-
     </script>
-    <script type="text/javascript" src="js/lib/barcodescanner.js">
-
-    </script>
-
-    <script type="text/javascript" src="js/src/main.js">
-
-    </script>
+    <script type="text/javascript" src="js/lib/barcodescanner.js"></script>
+    <script type="text/javascript" src="js/src/main.js"></script>
 </head>
-
 <body>
 <div data-role="page" class="page" data-theme="b" id="home-page">
     <div data-role="header" data-theme="b" class="header"
@@ -100,7 +87,7 @@
                        data-iconpos="notext" data-theme="b" data-inline="true"> Edit
                 </a></li>
                 <li><a href="#about-page" data-role="button" data-icon="info"
-                       data-iconpos="notext" data-theme="b" data-inline="true"> about
+                       data-iconpos="notext" data-theme="b" data-inline="true"> About
                 </a></li>
             </ul>
         </div>
@@ -128,9 +115,11 @@
         <label for="search-basic">search input:</label>
         <input type="search" data-icon="search" id="search-basic"/>
         <a href="" data-role="button" id="search-btn" data-theme="d">search</a>
-
         <div class="search-result" data-role="collapsible-set" data-theme="d">
-
+        </div>
+        <div id="page-btn">
+            <a href="#" data-role="button" id="pre-btn" data-icon="arrow-l" data-theme="d" data-inline="true" >Pre</a>
+            <a href="#" data-role="button" id="next-btn" data-icon="arrow-r" data-iconpos="right" data-theme="d" data-inline="true" >Next</a>
         </div>
     </div>
     <div data-role="footer" data-position="fixed" data-tap-toggle="false"
@@ -150,55 +139,86 @@
                 <li><a href="#edit-page" data-role="button" data-icon="edit"
                        data-iconpos="notext" data-theme="b" data-inline="true"> Edit
                 </a></li>
-                <li><a href="#" data-role="button" data-icon="edit"
-                       data-iconpos="notext" data-theme="b" data-inline="true"> Edit
+                <li><a href="#about-page" data-role="button"  data-icon="info"
+                       data-iconpos="notext" data-theme="b" data-inline="true"> About
                 </a></li>
             </ul>
         </div>
     </div>
     <script>
         $(".search-result").hide();
-        var jsonCallback = function (data) {
-            if (data.length > 0) {
-                $.each(data, function (key, val) {
-                    var items = [];
-                    var myid = 'id' + key;
-                    var div = document.createElement('div');
-                    div.id = myid;
-                    div.className = 'add';
-                    $(div).attr("data-role", 'collapsible');
-                    $(div).attr("data-theme", "d");
-                    var h3 = document.createElement('h3');
-                    var p = document.createElement('p');
-                    var ul = document.createElement('ul');
-                    var f = false;
-                    $.each(val, function (i, value) {
-                        if (f === false) {
-                            h3.innerHTML = i + ': ' + value;
-                            f = true;
-                        } else {
-                            var li = document.createElement('li');
-                            li.innerHTML = i + ": " + value;
-                            ul.appendChild(li);
-                        }
-
-                    })
-                    div.appendChild(h3);
-                    div.appendChild(ul);
-
-                    $(div).appendTo(".search-result");
-                    $("li:odd").addClass("odd");
-                    $("li:even").addClass("even");
-                    $(div).collapsible();
-                });
-            };
+        $('#pre-btn').addClass('ui-disabled');
+        $('#next-btn').addClass('ui-disabled');
+        var  processPage =  function(data,count){
+           $('.ui-collapsible').remove();
+            for(var k = 8*count; k < 8*(count+1) && k < data.length; ++k){
+                var items = [];
+                var div = document.createElement('div');
+                div.className = 'add';
+                $(div).attr("data-role", 'collapsible');
+                $(div).attr("data-theme", "d");
+                var h3 = document.createElement('h3');
+                var p = document.createElement('p');
+                var ul = document.createElement('ul');
+                var f = false;
+                $.each(data[k], function (i, value) {
+                    if (f === false) {
+                        h3.innerHTML = i + ': ' + value;
+                        f = true;
+                    } else {
+                        var li = document.createElement('li');
+                        li.innerHTML = i + ": " + value;
+                        ul.appendChild(li);
+                    }
+                })
+                div.appendChild(h3);
+                div.appendChild(ul);
+                $(div).appendTo(".search-result");
+                $("li:odd").addClass("odd");
+                $("li:even").addClass("even");
+                $(div).collapsible();
+            }
             $.mobile.loading('hide');
+            if(parseInt(count) != 0){
+                $('#pre-btn').removeClass('ui-disabled');
+            }else if(parseInt(count) == 0){
+                $('#pre-btn').addClass('ui-disabled');
+            }
+            if(parseInt(count+1) !== parseInt(pageCount)){
+                $('#next-btn').removeClass('ui-disabled');
+            } else if((count+1) == pageCount){
+                $('#next-btn').addClass('ui-disabled');
+            }
             $('.search-result').show();
+        }
+        var jsonCallback = function (data) {
+            var length = 0;
+            pageCount = 0;
+            if (data.length > 0) {
+                var count = 0;
+                length = data.length;
+                pageCount = parseInt(length / 8);
+                if(pageCount % 8 != 0){
+                    pageCount = pageCount + 1;
+                }
+                processPage(data,count);
+
+                $('#pre-btn').bind('click',function(){
+                    count = count - 1;
+                    processPage(data,count);
+                    return count;
+                });
+                $('#next-btn').bind('click',function(){
+                    count = count + 1;
+                    processPage(data,count);
+                    return count;
+                });
+
+            };
         }
         $("#search-btn").bind("click", function () {
             var inputval = $("#search-basic").val();
             if (inputval != undefined) {
-                //                console.log("1111");
                 $.mobile.loading('show', {
                     text: 'searching....',
                     textVisible: true,
@@ -224,9 +244,7 @@
                        $("#search-result").html("Wrong request!");
                     }
                 });
-
             }
-
         });
     </script>
 </div>
@@ -277,7 +295,7 @@
                        data-iconpos="notext" data-theme="b" data-inline="true"> Edit
                 </a></li>
                 <li><a href="#about-page" data-role="button" data-icon="info"
-                       data-iconpos="notext" data-theme="b" data-inline="true"> about
+                       data-iconpos="notext" data-theme="b" data-inline="true"> About
                 </a></li>
             </ul>
         </div>
@@ -387,7 +405,7 @@
                        data-iconpos="notext" data-theme="b" data-inline="true"
                        class="ui-btn-active ui-state-persist"> Edit </a></li>
                 <li><a href="#about-page" data-role="button" data-icon="info"
-                       data-iconpos="notext" data-theme="b" data-inline="true"> about
+                       data-iconpos="notext" data-theme="b" data-inline="true"> About
                 </a></li>
             </ul>
         </div>
@@ -453,7 +471,7 @@
                        data-iconpos="notext" data-theme="b" data-inline="true"
                        class="ui-btn-active ui-state-persist"> Edit </a></li>
                 <li><a href="#about-page" data-role="button" data-icon="info"
-                       data-iconpos="notext" data-theme="b" data-inline="true"> about
+                       data-iconpos="notext" data-theme="b" data-inline="true"> About
                 </a></li>
             </ul>
         </div>
