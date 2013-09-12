@@ -72,7 +72,7 @@ ul{
     list-style-type: none;
 }
 .ui-body-b, .ui-overlay-b {
-    background: #e8e8e8; //ĞŞ¸ÄÕâÀïµÄÑÕÉ«´úÂë
+    background: #e8e8e8; //ä¿®æ”¹è¿™é‡Œçš„é¢œè‰²ä»£ç 
 }
 .ui-input-search,.ui-input-text,.ui-btn{
     border-radius: 5px;
@@ -88,4 +88,7 @@ ul{
 }
 #edit-btn,#edit-cancle-btn{
     width: 45%;
+}
+#pre-btn,#next-btn{
+    min-width: 45%;
 }
